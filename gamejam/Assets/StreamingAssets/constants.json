@@ -18,7 +18,7 @@
   "FloodPushSpeed": 0.6,
   "FireSpreadTime": 0.3,
   "FireVanishTime": 0.2,
-  "FirePositionAdjusting": 0.2,
+  "FirePositionAdjusting": 0.25,
 
   "WindPositionAdjusting": 0,
   "WindVanishTime": 5,

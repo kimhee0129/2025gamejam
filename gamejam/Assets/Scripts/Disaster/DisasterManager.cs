@@ -32,6 +32,7 @@ public class DisasterManager : MonoBehaviour
         while (true)
         {
             vs.Spawn();
+            fls.Spawn();
             yield return new WaitForSeconds(5f);
 
             /*
