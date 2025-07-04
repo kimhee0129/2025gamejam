@@ -21,6 +21,8 @@
   "FirePositionAdjusting": 0.25,
 
   "WindPositionAdjusting": 0,
-  "WindVanishTime": 5
+  "WindVanishTime": 5,
+
+  "WindPreviewDuration": 0.5
 
 }

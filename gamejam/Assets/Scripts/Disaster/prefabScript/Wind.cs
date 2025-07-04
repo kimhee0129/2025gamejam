@@ -35,7 +35,7 @@ public class Wind : MonoBehaviour
     IEnumerator VanishRoutine()
     {
 
-        Debug.Log($"[Wind] 오브젝트 ID: {gameObject.GetInstanceID()} / 소멸 대기 시작. 대기 시간: {VanishTime}초");
+        //Debug.Log($"[Wind] 오브젝트 ID: {gameObject.GetInstanceID()} / 소멸 대기 시작. 대기 시간: {VanishTime}초");
 
         yield return new WaitForSeconds(VanishTime);
 
