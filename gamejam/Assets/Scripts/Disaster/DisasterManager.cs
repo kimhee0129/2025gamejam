@@ -30,7 +30,7 @@ public class DisasterManager : MonoBehaviour
         while (true)
         {
             fls.Spawn();
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(5f);
 
             
              if (Random.value > 0.5f)
