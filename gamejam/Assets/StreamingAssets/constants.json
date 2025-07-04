@@ -1,3 +1,12 @@
 {
-    "hello": 200
+  "hello": 200,
+  "EarthRadius": 2.7,
+  "PlayerAngleSpeed": 1.2,
+  "PlayerJumpTime": 0.6,
+  "PlayerJumpDistance": 1,
+
+  "PlayerInvincibilityTime": 1,
+  "PlayerInitialHealth": 100,
+
+  "FireSpreadAngle": 13
 }
