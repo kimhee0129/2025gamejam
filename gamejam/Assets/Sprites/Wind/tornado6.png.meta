@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      tornado6_0: -2663651217815362702
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

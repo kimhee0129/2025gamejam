@@ -535,7 +535,23 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      virus9_0: 3576001115706087256
+      virus9_1: -2117342962495737
+      virus9_10: -7408154722133683550
+      virus9_11: 299181743942284290
+      virus9_12: 7819473048108188048
+      virus9_13: 4219427364927619915
+      virus9_14: 6583372399503512906
+      virus9_15: 1256799892437447649
+      virus9_2: -9204702523144400269
+      virus9_3: 9012280205773218287
+      virus9_4: 1257053840828869346
+      virus9_5: -9127692363575941343
+      virus9_6: 7866720418782246632
+      virus9_7: -366072976337329468
+      virus9_8: -3398976207555986209
+      virus9_9: 4970147102250016827
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
