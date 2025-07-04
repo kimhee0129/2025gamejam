@@ -4,16 +4,6 @@ public class FloodSpawner : MonoBehaviour
 {
     public Flood current_flood;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public void Spawn()
     {
@@ -32,6 +22,8 @@ public class FloodSpawner : MonoBehaviour
 
     public float cal_move(float player_apos)
     {
+        if (current_flood == null)
+            return 0f;
         if (!current_flood.is_start || current_flood.flood_inf["activated"] == 0f)
             return 0f;
 

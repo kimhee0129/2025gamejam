@@ -21,6 +21,9 @@
   "FirePositionAdjusting": 0.2,
 
   "WindPositionAdjusting": 0,
-  "WindVanishTime": 5
+  "WindVanishTime": 5,
 
+  "VirusTime": 1.5,
+  "VirusCurve": 6.0,
+  "VirusOffsetY": -0.3
 }
