@@ -6,6 +6,8 @@ public class PlayerController_heewoo : MonoBehaviour
 {
     private Rigidbody2D rb;
     private float angle = Mathf.PI / 2f;
+    private SpriteRenderer sr; // 1. 스프라이트 렌더러 변수 추가
+    private Animator anim;     // 2. 애니메이터 변수 추가
 
     private float radius;
     private float current_radius;
@@ -33,6 +35,8 @@ public class PlayerController_heewoo : MonoBehaviour
 
         current_radius = radius;
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>(); // 3. 컴포넌트 가져오기
+        anim = GetComponent<Animator>();     // 4. 컴포넌트 가져오기
     }
 
     void FixedUpdate()
@@ -47,17 +51,25 @@ public class PlayerController_heewoo : MonoBehaviour
     {
         if (!isStunned)
         { // 스턴 상태일 때는 입력을 무시합니다.
-            float a = angle * Mathf.Rad2Deg + 90f;
-            transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, a));
-            if (Input.GetKey(KeyCode.A))
-            {
-                angle += angleSpeed * Time.deltaTime;
-            }
-            if (Input.GetKey(KeyCode.D))
-            {
-                angle += -angleSpeed * Time.deltaTime;
-            }
+            bool isMoving = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D);
+            anim.SetBool("isWalking", isMoving); // 5. isWalking 파라미터 설정
 
+            if (isMoving)
+            {
+                float a = angle * Mathf.Rad2Deg - 90f;
+                transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, a));
+                if (Input.GetKey(KeyCode.A))
+                {
+                    angle += angleSpeed * Time.deltaTime;
+                    sr.flipX = true; // 6. A키를 누르면 왼쪽으로 뒤집기
+                }
+                if (Input.GetKey(KeyCode.D))
+                {
+                    angle += -angleSpeed * Time.deltaTime;
+                    sr.flipX = false; // 7. D키를 누르면 원래 방향
+                }
+
+            }
             if (Input.GetKeyDown(KeyCode.Space) && !is_jumping)
             {
                 StartCoroutine(Jump());
@@ -76,6 +88,7 @@ public class PlayerController_heewoo : MonoBehaviour
     IEnumerator Jump()
     {
         is_jumping = true;
+        anim.SetBool("isJumping", true);
         float elapsed_time = 0f;
         while (elapsed_time < jump_time / 2)
         {
@@ -91,6 +104,8 @@ public class PlayerController_heewoo : MonoBehaviour
             current_radius = radius + scalarLerp(jump_d, 0, elapsed_time / (jump_time / 2));
             yield return null;
         }
+
+        anim.SetBool("isJumping", false);
         is_jumping = false;
     }
 
@@ -158,5 +173,10 @@ public class PlayerController_heewoo : MonoBehaviour
         // if (sr != null) sr.color = Color.white;
         isStunned = false;
         Debug.Log("스턴 해제.");
+    }
+
+    public void OnDie()
+    {
+        anim.SetTrigger("Die"); // 8. Die 트리거 발동
     }
 }

@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public Transform earthTransform;
+    public TextMeshProUGUI scoreText;
 
     public DisasterManager DM;
 
@@ -13,6 +15,8 @@ public class GameManager : MonoBehaviour
 
     public int playerHealth; // 플레이어의 초기 체력
     public bool isGameOver = false; // 게임오버 상태 확인
+
+    public float survivalTime;
 
 
     void Awake()
@@ -26,6 +30,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("two GameManagers..");
             Destroy(gameObject);
         }
+        survivalTime = 0f;
     }
 
     void Start()
@@ -36,6 +41,15 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
+        if (!isGameOver)
+        {
+            survivalTime += Time.deltaTime;
+            if (scoreText != null)
+            {
+                // 소수점 없이 정수로 깔끔하게 표시
+                scoreText.text = "Score: " + (int)survivalTime;
+            }
+        }
 
     }
 
@@ -56,6 +70,12 @@ public class GameManager : MonoBehaviour
     {
         isGameOver = true;
         Debug.Log("게임 오버!");
+
+        PlayerController_heewoo player = FindObjectOfType<PlayerController_heewoo>();
+        if (player != null)
+        {
+            player.OnDie();
+        }
 
     }
 
