@@ -292,6 +292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 084f62b46b4029a49a356b4c6fac58ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flood_spawner: {fileID: 0}
 --- !u!61 &1019462405
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -619,8 +620,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c2ccb26ac678e479632e6c2fb5552e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FS: {fileID: 469897645}
-  WS: {fileID: 2014290180}
 --- !u!1 &1848583782
 GameObject:
   m_ObjectHideFlags: 0
