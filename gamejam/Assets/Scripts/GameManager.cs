@@ -40,8 +40,6 @@ public class GameManager : MonoBehaviour
     {
     }
 
-    
-
     public void PlayerTakeDamage(int damage)
     {
         if (isGameOver) return; // 게임오버 상태면 아무것도 하지 않음

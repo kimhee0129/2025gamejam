@@ -8,5 +8,12 @@
   "PlayerInvincibilityTime": 1,
   "PlayerInitialHealth": 100,
 
-  "FireSpreadAngle": 13
+  "FireSpreadAngle": 13,
+  "FireSpreadTime": 0.3,
+  "FireVanishTime": 0.2,
+  "FirePositionAdjusting": 0.2,
+
+  "WindPositionAdjusting": 0,
+  "WindVanishTime": 5
+
 }

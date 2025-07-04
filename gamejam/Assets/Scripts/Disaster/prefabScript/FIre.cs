@@ -5,28 +5,37 @@ public class Fire : MonoBehaviour
 {
     private int direction = 0;
     private float spreadAngle;
+    private Transform earthTransform;
+    private float earthRadius;
+    private float OriginEarthRadius;
+    private float PositionAdujusting;
+    private float SpreadTime;
+    private float VanishTime;
 
     void OnEnable()
     {
-        StartCoroutine(SpreadAndVanishRoutine());
     }
 
-    public void Initialize(int direction)
+    public void Initialize(int direction, Transform earth)
     {
         this.direction = direction;
         this.spreadAngle = CL.Get<float>("FireSpreadAngle");
+        OriginEarthRadius = CL.Get<float>("EarthRadius");
+        PositionAdujusting = CL.Get<float>("FirePositionAdjusting");
+        earthRadius = OriginEarthRadius - PositionAdujusting;
+        this.earthTransform = earth;
+        this.SpreadTime = CL.Get<float>("FireSpreadTime");
+        this.VanishTime = CL.Get<float>("FireVanishTime");
+
+        StartCoroutine(SpreadAndVanishRoutine());
     }
 
     IEnumerator SpreadAndVanishRoutine()
     {
-        yield return new WaitForSeconds(0.3f);
-
-        Transform earthTransform = GameManager.instance.earthTransform;
-        float earthRadius = GameManager.instance.earthRadius;
+        yield return new WaitForSeconds(SpreadTime);
 
         float angleToRotate = (direction == 1) ? -spreadAngle : spreadAngle;
         Vector3 newDirection = Quaternion.Euler(0, 0, angleToRotate) * transform.up;
-
         Vector3 spawnPosition = earthTransform.position + newDirection * earthRadius;
 
         GameObject nextFire = ObjPoolManager.instance.InstantiateFromPool("Fire");
@@ -36,10 +45,10 @@ public class Fire : MonoBehaviour
             nextFire.transform.up = newDirection;
 
 
-            nextFire.GetComponent<Fire>().Initialize(this.direction);
+            nextFire.GetComponent<Fire>().Initialize(this.direction,this.earthTransform);
         }
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(VanishTime);
 
         ObjPoolManager.instance.Release(gameObject,"Fire");
     }
