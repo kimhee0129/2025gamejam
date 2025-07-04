@@ -19,8 +19,8 @@ public class PlayerController_heewoo : MonoBehaviour
     private bool isInvincible = false;
 
     public FloodSpawner flood_spawner;
-    public Transform deb;
 
+    private bool isStunned = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -45,20 +45,23 @@ public class PlayerController_heewoo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float a = angle * Mathf.Rad2Deg + 90f;
-        transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, a));
-        if (Input.GetKey(KeyCode.A))
-        {
-            angle += angleSpeed * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            angle += -angleSpeed * Time.deltaTime;
-        }
+        if (!isStunned)
+        { // 스턴 상태일 때는 입력을 무시합니다.
+            float a = angle * Mathf.Rad2Deg + 90f;
+            transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, a));
+            if (Input.GetKey(KeyCode.A))
+            {
+                angle += angleSpeed * Time.deltaTime;
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                angle += -angleSpeed * Time.deltaTime;
+            }
 
-        if (Input.GetKeyDown(KeyCode.Space) && !is_jumping)
-        {
-            StartCoroutine(Jump());
+            if (Input.GetKeyDown(KeyCode.Space) && !is_jumping)
+            {
+                StartCoroutine(Jump());
+            }
         }
 
         // flood에 의한 이동 구현
@@ -99,16 +102,27 @@ public class PlayerController_heewoo : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // 무적 상태가 아니면서, 부딪힌 상대방이 "Fire"일 때만 데미지를 입습니다.
-        if (!isInvincible && other.CompareTag("Fire"))
+        // 1. Fire 태그와 충돌했는지 확인
+        if (other.CompareTag("Fire"))
         {
-            // 1. GameManager에 데미지를 입었다고 알립니다.
-            GameManager.instance.PlayerTakeDamage(1);
+            // 무적 상태가 아닐 때만 데미지를 입습니다.
+            if (!isInvincible)
+            {
+                GameManager.instance.PlayerTakeDamage(1);
+                StartCoroutine(InvincibilityRoutine());
+            }
+        }
+        // 2. Wind 태그와 충돌했는지 확인
+        else if (other.CompareTag("Wind"))
+        {
+            // 스턴 상태가 아닐 때만 스턴에 걸립니다.
+            if (!isStunned)
+            {
+                StartCoroutine(StunRoutine(1.0f));
+            }
 
-            // 2. 무적 상태를 활성화하는 코루틴을 시작합니다.
-            StartCoroutine(InvincibilityRoutine());
-
-            // 3. Fire를 없애는 코드는 삭제합니다. 이제 Fire는 사라지지 않습니다.
+            // Wind는 플레이어와 부딪히면 즉시 사라집니다.
+            ObjPoolManager.instance.Release(other.gameObject, "Wind");
         }
     }
 
@@ -129,4 +143,20 @@ public class PlayerController_heewoo : MonoBehaviour
         isInvincible = false;
     }
 
+
+    private IEnumerator StunRoutine(float duration)
+    {
+        isStunned = true;
+        Debug.Log("플레이어 스턴! (1초간 이동 불가)");
+
+        // (선택 사항) 스턴 상태를 시각적으로 표시 (예: 색상 변경)
+        // SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        // if (sr != null) sr.color = Color.gray;
+
+        yield return new WaitForSeconds(duration);
+
+        // if (sr != null) sr.color = Color.white;
+        isStunned = false;
+        Debug.Log("스턴 해제.");
+    }
 }

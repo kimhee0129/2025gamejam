@@ -21,6 +21,9 @@ public class CL : MonoBehaviour
         return default;
     }
 
+    
+
+
     private void Awake()
     {
         if (_instance != null && _instance != this)

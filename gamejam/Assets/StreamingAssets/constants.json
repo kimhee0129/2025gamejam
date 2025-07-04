@@ -15,5 +15,12 @@
   "FloodWarnTime": 1.5,
   "FloodTime": 1,
   "FloodRemainTime": 1,
-  "FloodPushSpeed": 0.6
+  "FloodPushSpeed": 0.6,
+  "FireSpreadTime": 0.3,
+  "FireVanishTime": 0.2,
+  "FirePositionAdjusting": 0.2,
+
+  "WindPositionAdjusting": 0,
+  "WindVanishTime": 5
+
 }
