@@ -8,5 +8,12 @@
   "PlayerInvincibilityTime": 1,
   "PlayerInitialHealth": 100,
 
-  "FireSpreadAngle": 13
+  "FireSpreadAngle": 13,
+
+  "FloodOffsetX": -0.17,
+  "FloodOffsetY": -0.38,
+  "FloodWarnTime": 1.5,
+  "FloodTime": 1,
+  "FloodRemainTime": 1,
+  "FloodPushSpeed": 0.6
 }

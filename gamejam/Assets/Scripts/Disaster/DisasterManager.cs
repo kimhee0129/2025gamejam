@@ -3,11 +3,12 @@ using System.Collections;
 
 public class DisasterManager : MonoBehaviour
 {
-    private FireSpawner FS;
+    private FloodSpawner fls;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        FS=GetComponentInChildren<FireSpawner>();
+        //FS=GetComponentInChildren<FireSpawner>();
+        fls = GetComponentInChildren<FloodSpawner>();
     }
 
     // Update is called once per frame
@@ -25,8 +26,8 @@ public class DisasterManager : MonoBehaviour
     {
         while (true)
         {
-            FS.Spawn();
-            yield return new WaitForSeconds(5f);
+            fls.Spawn();
+            yield return new WaitForSeconds(10f);
             
         }
     }

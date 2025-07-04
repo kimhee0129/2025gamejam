@@ -18,6 +18,9 @@ public class PlayerController_heewoo : MonoBehaviour
     private bool is_jumping = false;
     private bool isInvincible = false;
 
+    public FloodSpawner flood_spawner;
+    public Transform deb;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,12 +33,6 @@ public class PlayerController_heewoo : MonoBehaviour
 
         current_radius = radius;
         rb = GetComponent<Rigidbody2D>();
-
-        /* test */
-        int test = CL.Get<int>("hello");
-        Debug.Log(test);
-        Debug.Log(GameManager.instance.test);
-        /* */
     }
 
     void FixedUpdate()
@@ -63,6 +60,14 @@ public class PlayerController_heewoo : MonoBehaviour
         {
             StartCoroutine(Jump());
         }
+
+        // flood에 의한 이동 구현
+        angle += flood_spawner.cal_move(angle) * Time.deltaTime;
+
+        /*deb.position = new Vector2(
+            Mathf.Cos(flood_spawner.current_flood.flood_inf["end"]) * CL.Get<float>("EarthRadius"),
+            Mathf.Sin(flood_spawner.current_flood.flood_inf["end"]) * CL.Get<float>("EarthRadius")
+        );*/
     }
 
     IEnumerator Jump()

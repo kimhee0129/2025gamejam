@@ -34,14 +34,10 @@ public class GameManager : MonoBehaviour
         DM.InitDisaster(); // 재난 초기화 시작
 
     }
-
-
     void Update()
     {
+
     }
-
-    
-
     public void PlayerTakeDamage(int damage)
     {
         if (isGameOver) return; // 게임오버 상태면 아무것도 하지 않음
@@ -60,5 +56,11 @@ public class GameManager : MonoBehaviour
         isGameOver = true;
         Debug.Log("게임 오버!");
 
+    }
+
+    public float scalarLerp(float s_a, float s_b, float percent)
+    {
+        Vector2 result = Vector2.Lerp(new Vector2(s_a, 0f), new Vector2(s_b, 0f), percent);
+        return result.x;
     }
 }

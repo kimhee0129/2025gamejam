@@ -46,7 +46,7 @@ public class FireSpawner : MonoBehaviour
             obstacle_R.transform.position = rightSpawnPos;
             obstacle_R.transform.up = rightDirection;
             // 오른쪽 Fire는 시계방향(1)으로 퍼지도록 설정
-            obstacle_R.GetComponent<FireController>().Initialize(1);
+            obstacle_R.GetComponent<Fire>().Initialize(1);
         }
 
         if (obstacle_L != null)
@@ -54,7 +54,7 @@ public class FireSpawner : MonoBehaviour
             obstacle_L.transform.position = leftSpawnPos;
             obstacle_L.transform.up = leftDirection;
             // 왼쪽 Fire는 반시계방향(0)으로 퍼지도록 설정
-            obstacle_L.GetComponent<FireController>().Initialize(0);
+            obstacle_L.GetComponent<Fire>().Initialize(0);
         }
     }
 
