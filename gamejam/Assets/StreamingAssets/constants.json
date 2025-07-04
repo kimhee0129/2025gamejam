@@ -22,7 +22,9 @@
 
   "WindPositionAdjusting": 0,
   "WindVanishTime": 5,
-
   "WindPreviewDuration": 0.5
 
+  "VirusTime": 1.5,
+  "VirusCurve": 6.0,
+  "VirusOffsetY": -0.3
 }
