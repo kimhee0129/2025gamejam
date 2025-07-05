@@ -36,5 +36,7 @@
   "VirusOffsetY": -1.2,
   "VirusDamage": 5,
   "VirusWarnOffset": -1,
-  "VirusWarnTime": 1.5
+  "VirusWarnTime": 1.5,
+
+  "gameoverUITime": 1.5
 }

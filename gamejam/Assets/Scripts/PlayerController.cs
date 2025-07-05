@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     private float jump_d;
     private bool is_jumping = false;
     private bool is_protect = false;
-    private bool can_control = true;
+    public bool can_control = true;
     private int wind_count = 0;
 
     private float shakeTime = 0f;
@@ -62,7 +62,10 @@ public class PlayerController : MonoBehaviour
             shakeTime = 0f; // ÃÊ±âÈ­
         }
 
-        anim.SetBool("can_control", can_control);
+        if (GameManager.instance.playing)
+            anim.SetBool("can_control", can_control);
+        else
+            anim.SetBool("can_control", true);
 
         if (!can_control)
         {
@@ -95,9 +98,16 @@ public class PlayerController : MonoBehaviour
         if (Mathf.Abs(flood_eff) > 0 && !is_protect)
         {
             StartCoroutine(Protect());
-            GameManager.instance.Damage(CL.Get<int>("FloodDamage"));
+            GameManager.instance.Damage(CL.Get<int>("FloodDamage"), "flood");
         }
         angle += flood_eff;
+    }
+
+    public void death_anim()
+    {
+        sr.color = Color.white;
+        anim.updateMode = AnimatorUpdateMode.UnscaledTime;
+        anim.SetTrigger("die");
     }
 
     IEnumerator Jump()
@@ -159,7 +169,7 @@ public class PlayerController : MonoBehaviour
 
         is_protect = false;
     }
-    
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Wind")
@@ -177,19 +187,19 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "Fire")
         {
             StartCoroutine(Protect());
-            GameManager.instance.Damage(CL.Get<int>("FireDamage"));
+            GameManager.instance.Damage(CL.Get<int>("FireDamage"), "fire");
         }
 
         if (other.tag == "Wind")
         {
             StartCoroutine(Protect());
-            GameManager.instance.Damage(CL.Get<int>("WindDamage"));
+            GameManager.instance.Damage(CL.Get<int>("WindDamage"), "wind");
         }
 
         if (other.tag == "Virus")
         {
             StartCoroutine(Protect());
-            GameManager.instance.Damage(CL.Get<int>("VirusDamage"));
+            GameManager.instance.Damage(CL.Get<int>("VirusDamage"), "virus");
         }
     }
 
