@@ -8,8 +8,7 @@ public class FloodSpawner : MonoBehaviour
     public void Spawn()
     {
         Flood f = ObjPoolManager.instance.InstantiateFromPool("Flood").GetComponent<Flood>();
-        //f.Init(Random.Range(0f, 2 * Mathf.PI));
-        f.Init(Mathf.PI / 2);
+        f.Init(Random.Range(0f, 2 * Mathf.PI));
         current_flood = f;
     }
 

@@ -1,30 +1,40 @@
 {
-  "hello": 200,
-  "EarthRadius": 2.7,
+  "EarthRadius": 3.35,
   "PlayerAngleSpeed": 1.2,
   "PlayerJumpTime": 0.6,
   "PlayerJumpDistance": 1,
 
-  "PlayerInvincibilityTime": 1,
+  "PlayerRedTime": 0.3,
+  "PlayerInvincibilityTime": 2,
+  "PlayerBlinkTime": 2,
   "PlayerInitialHealth": 100,
 
   "FireSpreadAngle": 13,
+  "FireSpreadTime": 0.3,
+  "FireVanishTime": 0.2,
+  "FirePositionAdjusting": -0.7,
+  "FireDamage": 10,
+  "FirePreviewTime": 1,
 
   "FloodOffsetX": -0.17,
-  "FloodOffsetY": -0.38,
+  "FloodOffsetY": -1.13,
   "FloodWarnTime": 1.5,
   "FloodTime": 1,
   "FloodRemainTime": 1,
-  "FloodPushSpeed": 0.6,
-  "FireSpreadTime": 0.3,
-  "FireVanishTime": 0.2,
-  "FirePositionAdjusting": 0.25,
+  "FloodPushSpeed": 1,
+  "FloodDamage": 15,
 
-  "WindPositionAdjusting": 0,
-  "WindVanishTime": 5,
-  "WindPreviewDuration": 0.5
+  "WindPositionAdjusting": -0.7,
+  "WindVanishTime": 1.5,
+  "WindPreviewDuration": 1,
+  "WindDamage": 10,
+  "WindShake": 2,
+  "WindShakeSpeed": 30,
 
   "VirusTime": 1.5,
   "VirusCurve": 6.0,
-  "VirusOffsetY": -0.3
+  "VirusOffsetY": -1.2,
+  "VirusDamage": 5,
+  "VirusWarnOffset": -1,
+  "VirusWarnTime": 1.5
 }

@@ -14,7 +14,7 @@ public class FireSpawner : MonoBehaviour
     {
         OriginEarthRadius = CL.Get<float>("EarthRadius");
         PositionAdujusting = CL.Get<float>("FirePositionAdjusting");
-        earthRadius = OriginEarthRadius - PositionAdujusting;
+        earthRadius = OriginEarthRadius + PositionAdujusting;
     }
 
     // Update is called once per frame
@@ -36,7 +36,6 @@ public class FireSpawner : MonoBehaviour
         // 1. 랜덤 기준점 생성
         float randomAngle = Random.Range(0f, 360f);
 
-        Debug.Log("불 랜덤 각도: " + randomAngle);
         Vector3 baseDirection = Quaternion.Euler(0, 0, randomAngle) * Vector3.up;
 
         // 2. 왼쪽(반시계)과 오른쪽(시계) 불의 방향과 위치 계산
@@ -62,7 +61,7 @@ public class FireSpawner : MonoBehaviour
         }
 
         // --- 3. 예고 시간만큼 대기 ---
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(CL.Get<float>("FirePreviewTime"));
 
         // --- 4. '잔상' 제거 ---
         if (preview_R != null) ObjPoolManager.instance.Release(preview_R, "Preview_Fire");

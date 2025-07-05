@@ -22,7 +22,7 @@ public class Fire : MonoBehaviour
         this.spreadAngle = CL.Get<float>("FireSpreadAngle");
         OriginEarthRadius = CL.Get<float>("EarthRadius");
         PositionAdujusting = CL.Get<float>("FirePositionAdjusting");
-        earthRadius = OriginEarthRadius - PositionAdujusting;
+        earthRadius = OriginEarthRadius + PositionAdujusting;
         this.earthTransform = earth;
         this.SpreadTime = CL.Get<float>("FireSpreadTime");
         this.VanishTime = CL.Get<float>("FireVanishTime");

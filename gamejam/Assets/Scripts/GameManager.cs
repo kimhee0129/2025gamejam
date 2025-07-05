@@ -6,15 +6,16 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public Transform earthTransform;
-    public TextMeshProUGUI scoreText;
+    public HPbar hp_bar;
+    public TMP_Text hp;
+    public TMP_Text score;
 
     public DisasterManager DM;
 
     public float earthRadius;
-    public int test = 5;
 
-    public int playerHealth; // 플레이어의 초기 체력
-    public bool isGameOver = false; // 게임오버 상태 확인
+    private int max_hp;
+    private int current_hp;
 
     public float survivalTime;
 
@@ -35,32 +36,24 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        playerHealth = CL.Get<int>("PlayerInitialHealth");
-        DM.InitDisaster(); // 재난 초기화 시작
+        max_hp = CL.Get<int>("PlayerInitialHealth");
+        current_hp = max_hp;
 
     }
     void Update()
     {
-        if (!isGameOver)
-        {
-            survivalTime += Time.deltaTime;
-            if (scoreText != null)
-            {
-                // 소수점 없이 정수로 깔끔하게 표시
-                scoreText.text = "Score: " + (int)survivalTime;
-            }
-        }
+        survivalTime += Time.deltaTime * 10;
+        score.text = $"{(int)survivalTime}";
 
+        hp.text = $"{current_hp}/{max_hp}";
+        hp_bar.set_value((float)current_hp / (float)max_hp);
     }
 
-    public void PlayerTakeDamage(int damage)
+    public void Damage(int damage)
     {
-        if (isGameOver) return; // 게임오버 상태면 아무것도 하지 않음
+        current_hp -= damage;
 
-        playerHealth -= damage;
-        Debug.Log("플레이어 체력: " + playerHealth); // 체력 감소 확인용 로그
-
-        if (playerHealth <= 0)
+        if (current_hp <= 0)
         {
             GameOver();
         }
@@ -68,15 +61,7 @@ public class GameManager : MonoBehaviour
 
     void GameOver()
     {
-        isGameOver = true;
-        Debug.Log("게임 오버!");
-
-        PlayerController_heewoo player = FindObjectOfType<PlayerController_heewoo>();
-        if (player != null)
-        {
-            player.OnDie();
-        }
-
+        Time.timeScale = 0f;
     }
 
     public float scalarLerp(float s_a, float s_b, float percent)

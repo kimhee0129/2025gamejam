@@ -1,16 +1,35 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class VirusSpawner : MonoBehaviour
 {
-    public PlayerController_heewoo pc;
+    public PlayerController pc;
     public void Spawn()
+    {
+        StartCoroutine(WarnAndShow());
+    }
+
+    IEnumerator WarnAndShow()
     {
         int m = 1;
         if (Random.value < 0.5f)
             m = -1;
 
-        Vector2 polar_pos = new Vector2(0f, CL.Get<float>("EarthRadius") * m);
+        float r = CL.Get<float>("EarthRadius") + CL.Get<float>("VirusWarnOffset");
+        Vector2 polar_pos = new Vector2(0f, r * m);
+
+        GameObject warn = ObjPoolManager.instance.InstantiateFromPool("virus_warn");
+        warn.transform.position = polar_pos;
+
+        yield return new WaitForSeconds(CL.Get<float>("VirusWarnTime"));
+        ObjPoolManager.instance.Release(warn, "virus_warn");
+
+        show(polar_pos);
+    }
+
+    public void show(Vector2 polar_pos)
+    {
 
         VirusExplosion ve = ObjPoolManager.instance.InstantiateFromPool("virus_explosion").GetComponent<VirusExplosion>();
         ve.Init(polar_pos);
@@ -46,7 +65,7 @@ public class VirusSpawner : MonoBehaviour
             vb_list.Add(ObjPoolManager.instance.InstantiateFromPool("virus_bullet").GetComponent<VirusBullet>());
         }
 
-        for (int i=0; i<3; i++)
+        for (int i = 0; i < 3; i++)
         {
             Vector2 offset = pc.transform.position.normalized * -CL.Get<float>("VirusOffsetY");
             vb_list[i].Shoot(polar_pos, (Vector2)pc.transform.position - offset, dir_list[i], bend);
